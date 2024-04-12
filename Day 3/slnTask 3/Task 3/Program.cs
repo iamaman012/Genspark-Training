@@ -2,31 +2,71 @@
 {
     internal class Program
     {
-        static void Average()
-        {   int sum = 0;
-            int count = 0;
-            int num;
-            while(true)
-            {   Console.WriteLine("Enter the Number");
-                num=int.Parse(Console.ReadLine());
-                if(num<0)
+        static double TakeNumber()
+        {
+            double num;
+            Console.WriteLine("Enter a number");
+
+            while (true)
+            {
+                while (!double.TryParse(Console.ReadLine(), out num))
                 {
-                    Console.WriteLine($"The average is {(sum*1.0)/count}");
+                    Console.WriteLine("Invalid entry. Please enter a number:");
+                }
+
+                if (num % 7 == 0 || num < 0)
+                {
                     break;
                 }
-                else if(num%7==0) {
-                    sum = sum + num;
-                    count++;
+                else
+                {
+                    Console.WriteLine("The entered number is not divisible by 7. Please enter another number:");
                 }
-               
-
             }
-           
 
+            return num;
         }
+
+        private static void PrintResult(double result, string ops)
+        {
+            Console.WriteLine($"The {ops} is {result}");
+        }
+        static void FindAndPrintAverageDivisibleBySeven()
+        {
+            double sum = 0;
+            int count = 0;
+            double num;
+
+            do
+            {
+                num = TakeNumber();
+
+                try
+                {
+                    checked
+                    {
+                        if (num >= 0 && num % 7 == 0)
+                        {
+                            sum += num;
+                            count++;
+                        }
+                    }
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("An overflow occurred while performing arithmetic operations.");
+                    return;
+                }
+            } while (num >= 0);
+
+            double average = count > 0 ? sum / count : 0;
+
+            PrintResult(average, "average of numbers divisible by 7");
+        }
+
         static void Main(string[] args)
         {
-            Average();
+            FindAndPrintAverageDivisibleBySeven();
         }
     }
 }
