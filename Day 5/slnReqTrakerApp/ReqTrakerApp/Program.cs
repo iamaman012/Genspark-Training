@@ -6,15 +6,13 @@ namespace ReqTrakerApp
         Employee[] employees;
         public Program()
         {
-            employees = new Employee[2];
+            employees = new Employee[3];
         }
         void PrintMenu()
         {
             Console.WriteLine("1. Add Employee");
             Console.WriteLine("2. Print Employees");
             Console.WriteLine("3. Search Employee by ID");
-            Console.WriteLine("4. Update Employee by ID");
-            Console.WriteLine("5. Delete Employee by ID");
             Console.WriteLine("0. Exit");
         }
         void EmployeeInteraction()
@@ -39,13 +37,6 @@ namespace ReqTrakerApp
                     case 3:
                         SearchAndPrintEmployee();
                         break;
-                    case 4:
-                        SearchAndUpdateEmployee();
-                        break;
-                    case 5:
-                        DeleteEmployeeById();
-                        break;
-
                     default:
                         Console.WriteLine("Invalid choice. Try again");
                         break;
@@ -78,12 +69,23 @@ namespace ReqTrakerApp
             for (int i = 0; i < employees.Length; i++)
             {
                 if (employees[i] != null)
+                {
+                    Company company = new Company();
+                    company.EmployeeClientVisit(employees[i]);
                     PrintEmployee(employees[i]);
+                }
+
             }
         }
         Employee CreateEmployee(int id)
         {
             Employee employee = new Employee();
+            Console.WriteLine("Please enter the type of employee");
+            string type = Console.ReadLine();
+            if (type == "Permanent")
+                employee = new PermanentEmployee();
+            else if (type == "Contract")
+                employee = new ContractEmployee();
             employee.Id = 101 + id;
             employee.BuildEmployeeFromConsole();
             return employee;
@@ -92,7 +94,7 @@ namespace ReqTrakerApp
         void PrintEmployee(Employee employee)
         {
             Console.WriteLine("---------------------------");
-            employee.PrintEmployeeDetails();
+            Console.WriteLine(employee);
             Console.WriteLine("---------------------------");
         }
         int GetIdFromConsole()
@@ -116,52 +118,6 @@ namespace ReqTrakerApp
                 return;
             }
             PrintEmployee(employee);
-            UpdateEmployee(employee);
-
-        }
-        void UpdateEmployee(Employee employee)
-        {
-            Console.WriteLine("Enter the Updated Name");
-            employee.Name = Console.ReadLine();
-            Console.WriteLine("Details of Updated Employee");
-            PrintEmployee(employee);
-            Console.WriteLine("Update Successfull");
-        }
-        void SearchAndUpdateEmployee()
-        {
-            int id = GetIdFromConsole();
-            Employee employee = SearchEmployeeById(id);
-            if(employee == null)
-            {
-                Console.WriteLine("Sorry No Employee with the matching Id found");
-                return;
-            }
-            PrintEmployee(employee);
-            UpdateEmployee(employee);
-        }
-        void DeleteEmployee(Employee employee)
-        {
-            for(int i=0;i<employees.Length;i++)
-            {
-                if (employees[i]!=null && employees[i].Id==employee.Id)
-                {
-                    employees[i] = null;
-                    Console.WriteLine("*******Deleted Successfully***********");
-                    break;
-                }
-            }
-        }
-        void DeleteEmployeeById()
-        {
-            int id = GetIdFromConsole();
-            Employee employee = SearchEmployeeById(id);
-            if(employee == null)
-            {
-                Console.WriteLine("Sorry No Employee exist with the Matching Id");
-                return;
-            }
-            PrintEmployee(employee);
-            DeleteEmployee(employee);
         }
         Employee SearchEmployeeById(int id)
         {
@@ -180,8 +136,12 @@ namespace ReqTrakerApp
 
         static void Main(string[] args)
         {
-            Program program = new Program();
-            program.EmployeeInteraction();
+            //Program program = new Program();
+            //program.EmployeeInteraction();
+            ContractEmployee employee = new ContractEmployee();
+            employee.BuildEmployeeFromConsole();
+            
+            Console.WriteLine(employee);
         }
     }
 }
