@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Doctor_Appointment_DAL_Library\Doctor_Appointment_DAL_Library.csproj" />
+    <ProjectReference Include="..\Doctor_Appointment_model_Library\Doctor_Appointment_model_Library.csproj" />
+  </ItemGroup>
+
+</Project>
