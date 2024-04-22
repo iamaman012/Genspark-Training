@@ -7,9 +7,9 @@ namespace BusBooking_BL_Library
     {
         readonly IRepository<Bus> _busRepository;
 
-        public BusManager(IRepository<Bus> busRepository)
+        public BusManager()
         {
-            _busRepository = busRepository;
+            _busRepository = new BusRepository();
         }
 
         public void AddBus(Bus bus)
@@ -17,7 +17,7 @@ namespace BusBooking_BL_Library
             _busRepository.Add(bus);
         }
 
-        public void DeleteBus(string busId)
+        public void DeleteBus(int busId)
         {
             _busRepository.Delete(busId);
         }
@@ -27,9 +27,23 @@ namespace BusBooking_BL_Library
             return _busRepository.GetAll();
         }
 
-        public Bus GetBusById(string busId)
+        public Bus GetBusById(int busId)
         {
             return _busRepository.GetById(busId);
+        }
+
+        public List<Bus> SearchForAvailableBuses(string origin, string destination, DateTime departureDate)
+        {
+            List<Bus> buses = _busRepository.GetAll();
+            List<Bus> result = new List<Bus>();
+            
+          foreach (Bus entity in buses) {
+               if(entity.Origin==origin && entity.Destination==destination && entity.DepartureTime.Date==departureDate)
+                {
+                    result.Add(entity);
+                }
+            }
+            return result;
         }
 
         public void UpdateBus(Bus bus)

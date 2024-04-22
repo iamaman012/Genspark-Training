@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace BusBooking_BL_Library
 {
-    public class BookingManager : IBookingManger
+    public class BookingManager : IBookingManager
     {
         readonly IRepository<Booking> _bookingRepository;
-        public BookingManager(IRepository<Booking> bookingRepository)
+        public BookingManager()
         {
-            _bookingRepository = bookingRepository;
+            _bookingRepository = new BookingRepository();
         }
         public void AddBooking(Booking booking)
         {
             _bookingRepository.Add(booking);
         }
 
-        public void DeleteBooking(string bookingId)
+        public void DeleteBooking(int bookingId)
         {
             _bookingRepository.Delete(bookingId);
         }
@@ -30,7 +30,7 @@ namespace BusBooking_BL_Library
             return _bookingRepository.GetAll();
         }
 
-        public Booking GetBookingById(string bookingId)
+        public Booking GetBookingById(int bookingId)
         {
             return _bookingRepository.GetById(bookingId);
         }

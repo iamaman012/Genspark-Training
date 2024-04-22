@@ -8,7 +8,7 @@ namespace BusBookingModelLibrary
 {
     public class Passenger
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string ContactInfo { get; set; }
 
@@ -16,11 +16,15 @@ namespace BusBookingModelLibrary
         {
         }
 
-        public Passenger(string id,string name, string contactInfo)
+        public Passenger(int id,string name, string contactInfo)
         {
-            Id = Id;
+            Id = id;
             Name = name;
             ContactInfo = contactInfo;
+        }
+        public override string ToString()
+        {
+            return "Passenger ID: " + Id + ", Passenger Name: " + Name + ", Contact Info: " + ContactInfo;
         }
     }
 }

@@ -10,9 +10,9 @@ namespace BusBooking_BL_Library
     public interface IRouteManager
     {
         List<Route> GetAllRoutes();
-        Route GetRouteById(string routeId);
+        Route GetRouteById(int routeId);
         void AddRoute(Route route);
         void UpdateRoute(Route route);
-        void DeleteRoute(string routeId);
+        void DeleteRoute(int routeId);
     }
 }

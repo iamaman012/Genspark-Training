@@ -8,7 +8,7 @@ namespace BusBookingModelLibrary
 {
     public class Booking
     {
-        public string BookingId { get; set; }
+        public int BookingId { get; set; }
         public Bus BookedBus { get; set; }
         public DateTime DepartureDate { get; set; }
         public int NumberOfSeats { get; set; }
@@ -19,7 +19,7 @@ namespace BusBookingModelLibrary
         }
 
      
-        public Booking(string bookingId, Bus bookedBus, DateTime departureDate, int numberOfSeats, Passenger passengerInfo)
+        public Booking(int bookingId, Bus bookedBus, DateTime departureDate, int numberOfSeats, Passenger passengerInfo)
         {
             BookingId = bookingId;
             BookedBus = bookedBus;

@@ -11,16 +11,16 @@ namespace BusBooking_BL_Library
     public class PassengerManager : IPassengerManager
     {
         readonly IRepository<Passenger> _passengerRepository;
-        public PassengerManager(IRepository<Passenger> passengerRepository)
+        public PassengerManager()
         {
-            _passengerRepository = passengerRepository;
+            _passengerRepository = new PassengerRepository();
         }
         public void AddPassenger(Passenger passenger)
         {
             _passengerRepository.Add(passenger);
         }
 
-        public void DeletePassenger(string passengerId)
+        public void DeletePassenger(int passengerId)
         {
             _passengerRepository.Delete(passengerId);
         }
@@ -30,7 +30,7 @@ namespace BusBooking_BL_Library
             return _passengerRepository.GetAll();
         }
 
-        public Passenger GetPassengerById(string passengerId)
+        public Passenger GetPassengerById(int passengerId)
         {
             return _passengerRepository.GetById(passengerId);
         }

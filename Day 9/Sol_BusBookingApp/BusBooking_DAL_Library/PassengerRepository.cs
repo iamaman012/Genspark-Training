@@ -9,11 +9,11 @@ namespace BusBooking_DAL_Library
 {
     public class PassengerRepository : IRepository<Passenger>
     {
-        readonly Dictionary<string, Passenger> _passengers;
+        readonly Dictionary<int, Passenger> _passengers;
 
         public PassengerRepository()
         {
-            _passengers = new Dictionary<string, Passenger>();
+            _passengers = new Dictionary<int, Passenger>();
         }
         public void Add(Passenger entity)
         {
@@ -23,7 +23,7 @@ namespace BusBooking_DAL_Library
                 Console.WriteLine("Passenger with the same ID already exists.");
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             if (_passengers.ContainsKey(id))
                 _passengers.Remove(id);
@@ -36,7 +36,7 @@ namespace BusBooking_DAL_Library
             return new List<Passenger>(_passengers.Values);
         }
 
-        public Passenger GetById(string id)
+        public Passenger GetById(int id)
         {
             if (_passengers.ContainsKey(id))
                 return _passengers[id];
@@ -50,6 +50,13 @@ namespace BusBooking_DAL_Library
                 _passengers[entity.Id] = entity;
             else
                 Console.WriteLine("Passenger not found.");
+        }
+        int GenerateId()
+        {
+            if (_passengers.Count == 0)
+                return 1;
+            int id = _passengers.Keys.Max();
+            return ++id;
         }
     }
 }

@@ -12,16 +12,16 @@ namespace BusBooking_BL_Library
     {
         readonly IRepository<Route> _routeRepository;
 
-        public RouteManager(IRepository<Route> routeRepository)
+        public RouteManager()
         {
-            _routeRepository = routeRepository;
+            _routeRepository = new RouteRepository();
         }
         public void AddRoute(Route route)
         {
             _routeRepository.Add(route);
         }
 
-        public void DeleteRoute(string routeId)
+        public void DeleteRoute(int routeId)
         {
             _routeRepository.Delete(routeId);
         }
@@ -31,7 +31,7 @@ namespace BusBooking_BL_Library
             return _routeRepository.GetAll();
         }
 
-        public Route GetRouteById(string routeId)
+        public Route GetRouteById(int routeId)
         {
             return _routeRepository.GetById(routeId);
         }

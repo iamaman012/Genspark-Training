@@ -10,10 +10,10 @@ namespace BusBooking_DAL_Library
 {
     public class RouteRepository : IRepository<Route>
     {
-        readonly Dictionary<string, Route> _routes;
+        readonly Dictionary<int, Route> _routes;
         public RouteRepository()
         {
-            _routes = new Dictionary<string, Route>();
+            _routes = new Dictionary<int, Route>();
         }
         public void Add(Route entity)
         {
@@ -23,7 +23,7 @@ namespace BusBooking_DAL_Library
                 Console.WriteLine("Route with the same ID already exists."); 
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             if (_routes.ContainsKey(id))
                 _routes.Remove(id);
@@ -36,7 +36,7 @@ namespace BusBooking_DAL_Library
             return new List<Route>(_routes.Values);
         }
 
-        public Route GetById(string id)
+        public Route GetById(int id)
         {
             if (_routes.ContainsKey(id))
                 return _routes[id];

@@ -8,11 +8,11 @@ namespace BusBooking_DAL_Library
 {
     public class BookingRepository : IRepository<Booking>
     {
-        readonly Dictionary<string, Booking> _bookings;
+        readonly Dictionary<int, Booking> _bookings;
 
         public BookingRepository()
         {
-            _bookings = new Dictionary<string, Booking>();
+            _bookings = new Dictionary<int, Booking>();
         }
         public void Add(Booking entity)
         {
@@ -22,7 +22,7 @@ namespace BusBooking_DAL_Library
                 Console.WriteLine("Booking with the same ID already exists.");
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             if (_bookings.ContainsKey(id))
                 _bookings.Remove(id);
@@ -35,7 +35,7 @@ namespace BusBooking_DAL_Library
             return new List<Booking>(_bookings.Values);
         }
 
-        public Booking GetById(string id)
+        public Booking GetById(int id)
         {
             if (_bookings.ContainsKey(id))
                 return _bookings[id];
@@ -49,6 +49,13 @@ namespace BusBooking_DAL_Library
                 _bookings[entity.BookingId] = entity;
             else
                 Console.WriteLine("Booking not found.");
+        }
+        public int GenerateId()
+        {
+            if (_bookings.Count == 0)
+                return 1;
+            int id = _bookings.Keys.Max();
+            return ++id;
         }
     }
 }
