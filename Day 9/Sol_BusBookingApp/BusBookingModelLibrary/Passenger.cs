@@ -8,6 +8,7 @@ namespace BusBookingModelLibrary
 {
     public class Passenger
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string ContactInfo { get; set; }
 
@@ -15,8 +16,9 @@ namespace BusBookingModelLibrary
         {
         }
 
-        public Passenger(string name, string contactInfo)
+        public Passenger(string id,string name, string contactInfo)
         {
+            Id = Id;
             Name = name;
             ContactInfo = contactInfo;
         }

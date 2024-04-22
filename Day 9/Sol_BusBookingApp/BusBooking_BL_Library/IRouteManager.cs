@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusBooking_BL_Library
 {
-    internal interface IRouteManager
+    public interface IRouteManager
     {
     }
 }
