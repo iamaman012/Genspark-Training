@@ -52,10 +52,13 @@ namespace BusBookingApp
         static void DisplayAdminMenu()
         {
             Console.WriteLine("Admin Functionality:");
-            Console.WriteLine("1. Add Bus");
+            Console.WriteLine("1. List Buses");
+            Console.WriteLine("2. Add Bus");
             //Console.WriteLine("2. Add Rout");
-            Console.WriteLine("2. Display All Bookings");
-            Console.WriteLine("3. Back to Main Menu");
+            Console.WriteLine("3. Update bus");
+            Console.WriteLine("4. Delete Bus");
+            Console.WriteLine("5. Display All Bookings");
+            Console.WriteLine("6. Back to Main Menu");
             Console.Write("Enter your choice: ");
 
             int choice;
@@ -64,13 +67,22 @@ namespace BusBookingApp
                 switch (choice)
                 {
                     case 1:
+                        ListBuses();
+                        break;
+                    case 2:
                         AddBus();
                         break;
-                    
-                    case 2:
+                    case 3:
+                        UpdateBus();    
+                        break;
+
+                    case 4:
+                        DeleteBus();
+                        break;
+                    case 5:
                         DisplayAllBooking();
                         break;
-                    case 3:
+                    case 6:
                         DisplayMainMenu();
                         break;
                     default:
@@ -187,6 +199,44 @@ namespace BusBookingApp
                     Console.WriteLine($"Bus ID: {bus.BusId}, Origin: {bus.Origin}, Destination: {bus.Destination}, Departure Time: {bus.DepartureTime}, Available Seats: {bus.AvailableSeats}");
                 }
             }
+        }
+        static void UpdateBus()
+        {
+            Console.WriteLine("Enter the Bus Id");
+            int id = int.Parse(Console.ReadLine());
+           Bus bus= busManager.GetBusById(id);
+            if(bus==null) Console.WriteLine("Bus ID is not found");
+            else
+            {
+                Console.WriteLine("Enter the New Origin");
+                bus.Origin = Console.ReadLine();
+                Console.WriteLine("Enter the New Destination");
+                bus.Destination = Console.ReadLine();
+                Console.WriteLine("Enter the New Departure date");
+                if (DateTime.TryParse(Console.ReadLine(), out DateTime departureTime))
+                {
+                    bus.DepartureTime = departureTime;
+                    busManager.UpdateBus(bus);
+                }
+                else
+                {
+                    Console.WriteLine("Please Enter the Valid Date");
+                }
+            }
+            DisplayAdminMenu(); 
+        }
+
+       static void DeleteBus()
+        {
+            Console.WriteLine("Enter the Bus Id");
+            int id = int.Parse(Console.ReadLine());
+            Bus bus = busManager.GetBusById(id);
+            if (bus == null) Console.WriteLine("Bus Id does not found");
+            else
+            {
+                busManager.DeleteBus(id);
+            }
+            DisplayAdminMenu();
         }
         //static void AddRoute()
         //{
