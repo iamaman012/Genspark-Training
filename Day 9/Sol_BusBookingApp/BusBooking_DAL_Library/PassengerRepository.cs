@@ -51,7 +51,7 @@ namespace BusBooking_DAL_Library
             else
                 Console.WriteLine("Passenger not found.");
         }
-        int GenerateId()
+       public int GenerateId()
         {
             if (_passengers.Count == 0)
                 return 1;

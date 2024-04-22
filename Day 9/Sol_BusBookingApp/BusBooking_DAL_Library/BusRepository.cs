@@ -17,7 +17,7 @@ namespace BusBooking_DAL_Library
         }
         public void Add(Bus entity)
         {
-            if (!_buses.ContainsKey(entity.BusId))
+            if (!_buses.ContainsValue(entity))
                 _buses.Add(entity.BusId, entity);
             else Console.WriteLine("Bus with the same ID Already Exist");
         }

@@ -13,5 +13,6 @@ namespace BusBooking_DAL_Library
         void Add(T entity);
         void Update(T entity);
         void Delete(int id);
+        int GenerateId();
     }
 }

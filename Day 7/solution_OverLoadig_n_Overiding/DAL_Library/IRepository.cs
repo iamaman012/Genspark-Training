@@ -13,6 +13,7 @@ namespace DAL_Library
         T Add(T item);  
         T Update(T item);
         T Delete(K key);
+        int 
 
     }
 }

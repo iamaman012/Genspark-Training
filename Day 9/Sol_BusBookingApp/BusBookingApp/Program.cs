@@ -1,13 +1,15 @@
 ﻿using BusBookingModelLibrary;
 using BusBooking_BL_Library;
 using BusBooking_DAL_Library;
+
 using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 namespace BusBookingApp
 {
     internal class Program
     {
         static IBusManager busManager;
-        static IRouteManager routeManager;
+        
         static IPassengerManager passengerManager;
         static IBookingManager bookingManager;
 
@@ -51,9 +53,9 @@ namespace BusBookingApp
         {
             Console.WriteLine("Admin Functionality:");
             Console.WriteLine("1. Add Bus");
-            Console.WriteLine("2. Add Route");
-            Console.WriteLine("3. Display All Bookings");
-            Console.WriteLine("4. Back to Main Menu");
+            //Console.WriteLine("2. Add Rout");
+            Console.WriteLine("2. Display All Bookings");
+            Console.WriteLine("3. Back to Main Menu");
             Console.Write("Enter your choice: ");
 
             int choice;
@@ -64,13 +66,11 @@ namespace BusBookingApp
                     case 1:
                         AddBus();
                         break;
+                    
                     case 2:
-                        AddRoute();
-                        break;
-                    case 3:
                         DisplayAllBooking();
                         break;
-                    case 4:
+                    case 3:
                         DisplayMainMenu();
                         break;
                     default:
@@ -129,8 +129,10 @@ namespace BusBookingApp
         {
             Console.WriteLine("Adding a New Bus:");
 
-            Console.Write("Enter Bus ID: ");
-            int busId = int.Parse(Console.ReadLine());
+            //Console.Write("Enter Bus ID: ");
+            //int busId = int.Parse(Console.ReadLine());
+            IRepository<Bus> busRepository = new BusRepository();
+            int busId = busRepository.GenerateId();
 
             Console.Write("Enter Origin: ");
             string origin = Console.ReadLine();
@@ -186,32 +188,32 @@ namespace BusBookingApp
                 }
             }
         }
-        static void AddRoute()
-        {
-            Console.WriteLine("Adding a New Route:");
+        //static void AddRoute()
+        //{
+        //    Console.WriteLine("Adding a New Route:");
 
-            Console.Write("Enter Route ID: ");
-            int routeId = int.Parse(Console.ReadLine());
+        //    Console.Write("Enter Route ID: ");
+        //    int routeId = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter Origin: ");
-            string origin = Console.ReadLine();
+        //    Console.Write("Enter Origin: ");
+        //    string origin = Console.ReadLine();
 
-            Console.Write("Enter Destination: ");
-            string destination = Console.ReadLine();
+        //    Console.Write("Enter Destination: ");
+        //    string destination = Console.ReadLine();
 
-            // Create a new route
-            Route route = new Route
-            {
-                RouteId = routeId,
-                Origin = origin,
-                Destination = destination
-            };
+        //    // Create a new route
+        //    Route route = new Route
+        //    {
+        //        RouteId = routeId,
+        //        Origin = origin,
+        //        Destination = destination
+        //    };
 
-            // Call BL method to add the route
-            routeManager.AddRoute(route);
+        //    // Call BL method to add the route
+        //    routeManager.AddRoute(route);
 
-            Console.WriteLine("Route added successfully!");
-        }
+        //    Console.WriteLine("Route added successfully!");
+        //}
         static void SearchForBuses()
         {
             Console.WriteLine("Search for Available Buses:");
@@ -257,8 +259,10 @@ namespace BusBookingApp
             Console.Write("Enter Number of Seats: ");
             if (int.TryParse(Console.ReadLine(), out int numberOfSeats))
             {
-                Console.WriteLine("Enter the Passenger Id");
-                int Pid = int.Parse(Console.ReadLine());
+                //Console.WriteLine("Enter the Passenger Id");
+                //int Pid = int.Parse(Console.ReadLine());
+                IRepository<Passenger> PassRepository = new PassengerRepository();
+                int Pid=PassRepository.GenerateId();
                 Console.Write("Enter Passenger Name: ");
                 string passengerName = Console.ReadLine();
                 Console.WriteLine("Enter the Passenger Contact Number");
@@ -320,7 +324,7 @@ namespace BusBookingApp
         static void Main(string[] args)
         {
             busManager = new BusManager();
-            routeManager = new RouteManager();
+            
             passengerManager = new PassengerManager();
             bookingManager = new BookingManager();
             DisplayMainMenu();
