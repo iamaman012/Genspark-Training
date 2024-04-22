@@ -7,9 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Bl_Library\Bl_Library.csproj" />
-    <ProjectReference Include="..\Overriding_Overloading_model_library\Overriding_Overloading_model_library.csproj" />
-  </ItemGroup>
-
 </Project>
