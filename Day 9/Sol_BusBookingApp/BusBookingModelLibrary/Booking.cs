@@ -8,6 +8,24 @@ namespace BusBookingModelLibrary
 {
     public class Booking
     {
-        
+        public string BookingId { get; set; }
+        public Bus BookedBus { get; set; }
+        public DateTime DepartureDate { get; set; }
+        public int NumberOfSeats { get; set; }
+        public Passenger PassengerInfo { get; set; }
+
+        public Booking()
+        {
+        }
+
+     
+        public Booking(string bookingId, Bus bookedBus, DateTime departureDate, int numberOfSeats, Passenger passengerInfo)
+        {
+            BookingId = bookingId;
+            BookedBus = bookedBus;
+            DepartureDate = departureDate;
+            NumberOfSeats = numberOfSeats;
+            PassengerInfo = passengerInfo;
+        }
     }
 }
