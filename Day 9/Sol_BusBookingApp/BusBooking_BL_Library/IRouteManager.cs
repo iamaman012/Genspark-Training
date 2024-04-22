@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusBookingModelLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace BusBooking_BL_Library
 {
     public interface IRouteManager
     {
+        List<Route> GetAllRoutes();
+        Route GetRouteById(string routeId);
+        void AddRoute(Route route);
+        void UpdateRoute(Route route);
+        void DeleteRoute(string routeId);
     }
 }
