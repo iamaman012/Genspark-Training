@@ -1,5 +1,6 @@
 ﻿using DAL_Library;
 using Overriding_Overloading_model_library;
+using System.Runtime.CompilerServices;
 
 namespace Bl_Library
 {
@@ -8,7 +9,11 @@ namespace Bl_Library
         readonly IRepository<int, Department> _departmentRepository;
         public DepartmentBL()
         {
-            _departmentRepository = new DepartmentRepository();
+            _departmentRepository=new DepartmentRepository();   
+        }
+        public DepartmentBL(IRepository<int, Department> departmentRepository)
+        {
+            _departmentRepository = departmentRepository;
         }
 
         public int AddDepartment(Department department)
@@ -35,7 +40,12 @@ namespace Bl_Library
 
         public Department GetDepartmentByName(string departmentName)
         {
-            throw new NotImplementedException();
+            var departments = _departmentRepository.GetAll();
+            for (int i = 0; i < departments.Count; i++)
+                if (departments[i].Name == departmentName)
+                    return departments[i];
+            throw new DepartmentNotFoundException();
+            
         }
 
         public int GetDepartmentHeadId(int departmentId)

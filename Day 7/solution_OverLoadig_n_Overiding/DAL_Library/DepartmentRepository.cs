@@ -22,6 +22,7 @@ namespace DAL_Library
             {
                 return null;
             }
+            item.Id = GenerateId();
             _departments.Add(GenerateId(), item);
             return item;
         }

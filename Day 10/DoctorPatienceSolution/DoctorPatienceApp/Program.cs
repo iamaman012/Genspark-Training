@@ -1,4 +1,4 @@
-﻿namespace BusBookingApp
+﻿namespace DoctorPatienceApp
 {
     internal class Program
     {
