@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BusBooking_DAL_Library
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<K,T> where T : class
     {
         List<T> GetAll();
-        T GetById(int id);
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(int id);
-        int GenerateId();
+        T GetById(K id);
+        T Add(T entity);
+       T Delete(K id);
+       
+        T Update(T entity);
     }
 }

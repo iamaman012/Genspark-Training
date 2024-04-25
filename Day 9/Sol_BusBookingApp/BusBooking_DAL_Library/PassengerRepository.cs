@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using BusBookingModelLibrary;
 namespace BusBooking_DAL_Library
 {
-    public class PassengerRepository : IRepository<Passenger>
+    public class PassengerRepository : IRepository<int,Passenger>
     {
         readonly Dictionary<int, Passenger> _passengers;
 
@@ -15,25 +15,32 @@ namespace BusBooking_DAL_Library
         {
             _passengers = new Dictionary<int, Passenger>();
         }
-        public void Add(Passenger entity)
+        public Passenger Add(Passenger entity)
         {
             if (!_passengers.ContainsKey(entity.Id))
+            {entity.Id = GenerateId();
                 _passengers.Add(entity.Id, entity);
-            else
-                Console.WriteLine("Passenger with the same ID already exists.");
+                return entity;
+
+            }
+            return null;
         }
 
-        public void Delete(int id)
+        public Passenger Delete(int id)
         {
             if (_passengers.ContainsKey(id))
+            {
+                var patient = _passengers[id];  
                 _passengers.Remove(id);
-            else
-                Console.WriteLine("Passenger not found.");
+                return patient;
+            }
+            return null;
         }
 
         public List<Passenger> GetAll()
         {
-            return new List<Passenger>(_passengers.Values);
+            if (_passengers.Count == 0) return null;
+            return _passengers.Values.ToList(); 
         }
 
         public Passenger GetById(int id)
@@ -44,17 +51,20 @@ namespace BusBooking_DAL_Library
                 return null;
         }
 
-        public void Update(Passenger entity)
+        public Passenger Update(Passenger entity)
         {
             if (_passengers.ContainsKey(entity.Id))
+            {
+
                 _passengers[entity.Id] = entity;
-            else
-                Console.WriteLine("Passenger not found.");
+                return entity;
+            }
+            return null;
         }
        public int GenerateId()
         {
             if (_passengers.Count == 0)
-                return 1;
+                return 301;
             int id = _passengers.Keys.Max();
             return ++id;
         }

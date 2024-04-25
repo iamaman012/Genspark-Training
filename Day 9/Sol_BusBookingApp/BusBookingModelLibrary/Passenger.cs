@@ -26,5 +26,12 @@ namespace BusBookingModelLibrary
         {
             return "Passenger ID: " + Id + ", Passenger Name: " + Name + ", Contact Info: " + ContactInfo;
         }
+        public void GetInputFromConsole()
+        {
+            Console.WriteLine("Enter the Passenger Name");
+            Name = Console.ReadLine();
+            Console.WriteLine("Enter the Passenger Contact Number");
+            ContactInfo = Console.ReadLine();
+        }
     }
 }

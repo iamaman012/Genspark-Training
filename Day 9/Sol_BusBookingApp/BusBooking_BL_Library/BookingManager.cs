@@ -10,34 +10,47 @@ namespace BusBooking_BL_Library
 {
     public class BookingManager : IBookingManager
     {
-        readonly IRepository<Booking> _bookingRepository;
+        readonly IRepository<int,Booking> _bookingRepository;
         public BookingManager()
         {
             _bookingRepository = new BookingRepository();
         }
-        public void AddBooking(Booking booking)
+        public Booking AddBooking(Booking booking)
         {
-            _bookingRepository.Add(booking);
+            Booking result = _bookingRepository.Add(booking);
+            if (result!=null) return result;
+            throw new DuplicateBookingException();
         }
 
-        public void DeleteBooking(int bookingId)
+        public Booking DeleteBooking(int bookingId)
         {
-            _bookingRepository.Delete(bookingId);
+             Booking result = _bookingRepository.Delete(bookingId);
+            if(result!=null) return result;
+            throw new BookingNotExistException();
         }
 
         public List<Booking> GetAllBookings()
         {
-            return _bookingRepository.GetAll();
+            List<Booking> bookings = _bookingRepository.GetAll();
+            if(bookings!=null) return bookings;
+            throw new BookingNotExistException();
+
         }
 
         public Booking GetBookingById(int bookingId)
         {
-            return _bookingRepository.GetById(bookingId);
+            Booking result = _bookingRepository.GetById(bookingId);
+            if(result!=null) return result; 
+            throw new BookingNotExistException();
         }
 
-        public void UpdateBooking(Booking booking)
+        public Booking UpdateBooking(Booking booking)
         {
-            _bookingRepository.Update(booking);
+           var result = _bookingRepository.Update(booking);
+            if(result != null) return result;
+            throw new BookingNotExistException();
         }
+
+      
     }
 }

@@ -5,50 +5,52 @@ namespace BusBooking_BL_Library
 {
     public class BusManager : IBusManager
     {
-        readonly IRepository<Bus> _busRepository;
+        readonly IRepository<int,Bus> _busRepository;
 
         public BusManager()
         {
             _busRepository = new BusRepository();
         }
 
-        public void AddBus(Bus bus)
+        public Bus AddBus(Bus bus)
         {
-            _busRepository.Add(bus);
+            Bus result = _busRepository.Add(bus);
+            if(result!=null) return result;
+            throw new DuplicateBusException();
+
         }
 
-        public void DeleteBus(int busId)
+        public Bus DeleteBus(int busId)
         {
-            _busRepository.Delete(busId);
+          Bus result=  _busRepository.Delete(busId);
+            if(result!=null) return result;
+            throw new BusNotExistException();
         }
 
         public List<Bus> GetAllBuses()
         {
-            return _busRepository.GetAll();
+            List<Bus> buses = _busRepository.GetAll();
+            if(buses!=null) return buses;
+            throw new BusNotExistException();
         }
 
         public Bus GetBusById(int busId)
         {
-            return _busRepository.GetById(busId);
+            Bus bus = _busRepository.GetById(busId);
+            if(bus!=null) return bus;
+            throw new BusNotExistException();
         }
 
-        public List<Bus> SearchForAvailableBuses(string origin, string destination, DateTime departureDate)
+       
+
+        public Bus UpdateBus(Bus bus)
         {
-            List<Bus> buses = _busRepository.GetAll();
-            List<Bus> result = new List<Bus>();
-            
-          foreach (Bus entity in buses) {
-               if(entity.Origin==origin && entity.Destination==destination && entity.DepartureTime.Date==departureDate)
-                {
-                    result.Add(entity);
-                }
-            }
-            return result;
+            Bus result = _busRepository.Update(bus);
+            if(result!=null) return result;
+            throw new BusNotExistException();
         }
 
-        public void UpdateBus(Bus bus)
-        {
-            _busRepository.Update(bus);
-        }
+       
+        
     }
 }

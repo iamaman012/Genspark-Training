@@ -10,7 +10,7 @@ namespace BusBookingModelLibrary
     {
         public int BookingId { get; set; }
         public Bus BookedBus { get; set; }
-        public DateTime DepartureDate { get; set; }
+      
         public int NumberOfSeats { get; set; }
         public Passenger PassengerInfo { get; set; }
 
@@ -19,13 +19,24 @@ namespace BusBookingModelLibrary
         }
 
      
-        public Booking(int bookingId, Bus bookedBus, DateTime departureDate, int numberOfSeats, Passenger passengerInfo)
+        public Booking(int bookingId, Bus bookedBus, int numberOfSeats, Passenger passengerInfo)
         {
             BookingId = bookingId;
             BookedBus = bookedBus;
-            DepartureDate = departureDate;
+            
             NumberOfSeats = numberOfSeats;
             PassengerInfo = passengerInfo;
+        }
+        public override string ToString()
+        {
+            return "Booking ID: " + BookingId;
+        }
+        public void GetInputFromConsole(Bus bus,Passenger passenger)
+        {
+            BookedBus = bus;
+            PassengerInfo = passenger;
+            Console.WriteLine("Enter the Number of Seats");
+            NumberOfSeats=int.Parse(Console.ReadLine());
         }
     }
 }

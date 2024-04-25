@@ -11,9 +11,9 @@ namespace BusBooking_BL_Library
     {
         List<Bus> GetAllBuses();
         Bus GetBusById(int busId);
-        void AddBus(Bus bus);
-        void UpdateBus(Bus bus);
-        void DeleteBus(int busId);
-        List<Bus> SearchForAvailableBuses(string origin, string destination, DateTime departureDate);
+        Bus AddBus(Bus bus);
+        Bus UpdateBus(Bus bus);
+        Bus DeleteBus(int busId);
+        
     }
 }

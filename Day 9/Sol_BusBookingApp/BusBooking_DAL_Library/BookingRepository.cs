@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BusBookingModelLibrary;
 namespace BusBooking_DAL_Library
 {
-    public class BookingRepository : IRepository<Booking>
+    public class BookingRepository : IRepository<int,Booking>
     {
         readonly Dictionary<int, Booking> _bookings;
 
@@ -14,25 +14,34 @@ namespace BusBooking_DAL_Library
         {
             _bookings = new Dictionary<int, Booking>();
         }
-        public void Add(Booking entity)
+        public Booking Add(Booking entity)
         {
             if (!_bookings.ContainsKey(entity.BookingId))
+            {
+                entity.BookingId = GenerateId();
                 _bookings.Add(entity.BookingId, entity);
-            else
-                Console.WriteLine("Booking with the same ID already exists.");
+                return entity;
+            }
+
+            return null;
         }
 
-        public void Delete(int id)
+        public Booking Delete(int id)
         {
             if (_bookings.ContainsKey(id))
-                _bookings.Remove(id);
-            else
-                Console.WriteLine("Booking not found.");
+            {
+                Booking booking = _bookings[id];
+                _bookings.Remove(id);   
+                return booking;
+            }
+
+            return null;
         }
 
         public List<Booking> GetAll()
         {
-            return new List<Booking>(_bookings.Values);
+            if (_bookings.Count == 0) return null;
+            return _bookings.Values.ToList();   
         }
 
         public Booking GetById(int id)
@@ -43,19 +52,24 @@ namespace BusBooking_DAL_Library
                 return null;
         }
 
-        public void Update(Booking entity)
+        public Booking Update(Booking entity)
         {
+
             if (_bookings.ContainsKey(entity.BookingId))
+            {
                 _bookings[entity.BookingId] = entity;
-            else
-                Console.WriteLine("Booking not found.");
+                return entity;
+            }
+            return null;
         }
         public int GenerateId()
         {
             if (_bookings.Count == 0)
-                return 1;
+                return 101;
             int id = _bookings.Keys.Max();
             return ++id;
         }
+
+       
     }
 }

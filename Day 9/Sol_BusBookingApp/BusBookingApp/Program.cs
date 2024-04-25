@@ -116,7 +116,7 @@ namespace BusBookingApp
                         ListBuses();
                         break;
                     case 2:
-                        SearchForBuses();
+                        BookTicket();
                         break;
                     case 3:
                         CancelTicket();
@@ -140,89 +140,52 @@ namespace BusBookingApp
         static void AddBus()
         {
             Console.WriteLine("Adding a New Bus:");
-
-            //Console.Write("Enter Bus ID: ");
-            //int busId = int.Parse(Console.ReadLine());
-            IRepository<Bus> busRepository = new BusRepository();
-            int busId = busRepository.GenerateId();
-
-            Console.Write("Enter Origin: ");
-            string origin = Console.ReadLine();
-
-            Console.Write("Enter Destination: ");
-            string destination = Console.ReadLine();
-
-            Console.Write("Enter Departure Time (YYYY-MM-DD HH:MM): ");
-            if (DateTime.TryParse(Console.ReadLine(), out DateTime departureTime))
-            {
-                Console.Write("Enter Available Seats: ");
-                if (int.TryParse(Console.ReadLine(), out int availableSeats))
-                {
-                    Bus bus = new Bus
-                    {
-                        BusId = busId,
-                        Origin = origin,
-                        Destination = destination,
-                        DepartureTime = departureTime,
-                        AvailableSeats = availableSeats
-                    };
-
-                    // Call BL method to add the bus
-                    busManager.AddBus(bus);
-
-                    Console.WriteLine("Bus added successfully!");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input for available seats. Please enter a number.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid input for departure time. Please enter a valid date and time (YYYY-MM-DD HH:MM).");
-            }
+            Bus bus = new Bus();
+            bus.InputFromConsole();
+            Bus result= busManager.AddBus(bus);
+            Console.WriteLine(result);
+           
         }
         static void ListBuses()
         {
             // Call BL method to get all buses
-            var buses = busManager.GetAllBuses();
-
-            if (buses.Count == 0)
+            try
             {
-                Console.WriteLine("No buses are currently available.");
-            }
-            else
-            {
+                var buses = busManager.GetAllBuses();
                 Console.WriteLine("Available Buses:");
                 foreach (var bus in buses)
                 {
-                    Console.WriteLine($"Bus ID: {bus.BusId}, Origin: {bus.Origin}, Destination: {bus.Destination}, Departure Time: {bus.DepartureTime}, Available Seats: {bus.AvailableSeats}");
+                    Console.WriteLine(bus);
                 }
+
             }
+            catch(BusNotExistException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+          
+            
         }
         static void UpdateBus()
         {
             Console.WriteLine("Enter the Bus Id");
-            int id = int.Parse(Console.ReadLine());
-           Bus bus= busManager.GetBusById(id);
-            if(bus==null) Console.WriteLine("Bus ID is not found");
-            else
+            int Id = int.Parse(Console.ReadLine());
+            Bus bus = new Bus()
             {
-                Console.WriteLine("Enter the New Origin");
-                bus.Origin = Console.ReadLine();
-                Console.WriteLine("Enter the New Destination");
-                bus.Destination = Console.ReadLine();
-                Console.WriteLine("Enter the New Departure date");
-                if (DateTime.TryParse(Console.ReadLine(), out DateTime departureTime))
-                {
-                    bus.DepartureTime = departureTime;
-                    busManager.UpdateBus(bus);
-                }
-                else
-                {
-                    Console.WriteLine("Please Enter the Valid Date");
-                }
+                BusId = Id
+            };
+
+            bus.InputFromConsole();
+            try { 
+              Bus result = busManager.UpdateBus(bus);
+                Console.WriteLine(result);
             }
+            catch(BusNotExistException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
             DisplayAdminMenu(); 
         }
 
@@ -230,12 +193,16 @@ namespace BusBookingApp
         {
             Console.WriteLine("Enter the Bus Id");
             int id = int.Parse(Console.ReadLine());
-            Bus bus = busManager.GetBusById(id);
-            if (bus == null) Console.WriteLine("Bus Id does not found");
-            else
+            try
             {
-                busManager.DeleteBus(id);
+                Bus result = busManager.DeleteBus(id);
+                Console.WriteLine(result);
             }
+            catch(BusNotExistException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
             DisplayAdminMenu();
         }
         //static void AddRoute()
@@ -264,90 +231,80 @@ namespace BusBookingApp
 
         //    Console.WriteLine("Route added successfully!");
         //}
-        static void SearchForBuses()
-        {
-            Console.WriteLine("Search for Available Buses:");
-
-            Console.Write("Enter Origin: ");
-            string origin = Console.ReadLine();
-
-            Console.Write("Enter Destination: ");
-            string destination = Console.ReadLine();
-
-            Console.Write("Enter Departure Date (YYYY-MM-DD): ");
-            if (DateTime.TryParse(Console.ReadLine(), out DateTime departureDate))
-            {
-                // Call BL method to search for available buses
-                var availableBuses = busManager.SearchForAvailableBuses(origin, destination, departureDate);
-
-                if (availableBuses.Count == 0)
-                {
-                    Console.WriteLine("No available buses found for the given criteria.");
-                }
-                else
-                {
-                    Console.WriteLine("Available Buses:");
-                    foreach (var bus in availableBuses)
-                    {
-                        Console.WriteLine($"Bus ID: {bus.BusId}, Origin: {bus.Origin}, Destination: {bus.Destination}, Departure Time: {bus.DepartureTime}, Available Seats: {bus.AvailableSeats}");
-                    }
-                    BookTicket();
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid input for departure date. Please enter a valid date (YYYY-MM-DD).");
-            }
-        }
+       
         public static void BookTicket()
         {
             Console.WriteLine("Booking Ticket:");
 
-            // Prompt user for necessary information
-            Console.Write("Enter Bus ID: ");
-            int busId = int.Parse(Console.ReadLine());
-            Console.Write("Enter Number of Seats: ");
-            if (int.TryParse(Console.ReadLine(), out int numberOfSeats))
+            Console.WriteLine("Enter the Origin");
+            string origin = Console.ReadLine();
+            Console.WriteLine("Enter the Destination");
+            string destination= Console.ReadLine();
+            Console.WriteLine("Enter the Departure Date");
+            DateTime departureDate = DateTime.Parse(Console.ReadLine());
+            try
             {
-                //Console.WriteLine("Enter the Passenger Id");
-                //int Pid = int.Parse(Console.ReadLine());
-                IRepository<Passenger> PassRepository = new PassengerRepository();
-                int Pid=PassRepository.GenerateId();
-                Console.Write("Enter Passenger Name: ");
-                string passengerName = Console.ReadLine();
-                Console.WriteLine("Enter the Passenger Contact Number");
-                string ContactNumber = Console.ReadLine();
-
-                Bus bus = busManager.GetBusById(busId);
-                bus.UpdateSeats(numberOfSeats);
-                Passenger passenger = new Passenger(Pid, passengerName, ContactNumber);
-                Booking booking = new Booking(Pid,bus,bus.DepartureTime,numberOfSeats,passenger);
-                bookingManager.AddBooking(booking);
-                Console.WriteLine("Ticket Booked Successfully");
-
-
+                List<Bus> buses = busManager.GetAllBuses();
+                List<Bus> UserBuses = new List<Bus>();
+                foreach (Bus bu in buses)
+                {
+                    if (bu.Origin == origin && bu.Destination == destination && bu.DepartureDate == departureDate) UserBuses.Add(bu);
+                }
+                foreach(Bus bu in UserBuses)
+                {
+                    Console.WriteLine(bu);
+                }
+                Console.WriteLine("Enter the bus Id for booking");
+                int busId = int.Parse(Console.ReadLine());
+                Bus BookingBus = busManager.GetBusById(busId);
+                Passenger passenger = new Passenger();
+                passenger.GetInputFromConsole();
+                Passenger BookingPass = passengerManager.AddPassenger(passenger);
+                Booking booking = new Booking();
+                booking.GetInputFromConsole(BookingBus, BookingPass);
+                Booking NBooking = bookingManager.AddBooking(booking);
+                Console.WriteLine(NBooking);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
            
-          else  {
-                Console.WriteLine("Invalid input for number of seats. Please enter a number.");
-            }
+           // Console.WriteLine("Enter the bus Id for booking");
+           // int busId = int.Parse(Console.ReadLine());
+           // Bus BookingBus = busManager.GetBusById(busId);
+           // Passenger passenger = new Passenger();
+           // passenger.GetInputFromConsole();
+           //Passenger BookingPass= passengerManager.AddPassenger(passenger);
+           // Booking booking = new Booking();
+           // booking.GetInputFromConsole(BookingBus,BookingPass );
+           // Booking NBooking=bookingManager.AddBooking(booking);
+           // Console.WriteLine(NBooking);
+
+
+
+
+
+
+
+
+
             DisplayUserMenu();
         }
 
        static void DisplayAllBooking()
         {
-            List<Booking> booking= bookingManager.GetAllBookings();
-            if (booking.Count == 0)
+            try
             {
-                Console.WriteLine("No Bookings");
-            }
-            else
-            {
-                foreach (Booking book in booking)
+                List<Booking> bookings = bookingManager.GetAllBookings();
+                foreach (Booking booking in bookings)
                 {
-
-                    Console.WriteLine("Booking Id: " + book.BookingId +", "+ book.BookedBus  + ", Number of Seats " + book.NumberOfSeats + ", "+ book.PassengerInfo);
+                    Console.WriteLine(booking);
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             DisplayAdminMenu();
 
@@ -363,7 +320,8 @@ namespace BusBookingApp
             }
             else
             {
-                bookingManager.DeleteBooking(BookId);
+               Booking booking= bookingManager.DeleteBooking(BookId);
+                Console.WriteLine(booking);
                 Console.WriteLine("Ticket Cancelled Successfully");
             }
             DisplayUserMenu();
@@ -374,7 +332,7 @@ namespace BusBookingApp
         static void Main(string[] args)
         {
             busManager = new BusManager();
-            
+
             passengerManager = new PassengerManager();
             bookingManager = new BookingManager();
             DisplayMainMenu();

@@ -7,7 +7,7 @@ using BusBookingModelLibrary;
 
 namespace BusBooking_DAL_Library
 {
-    public class BusRepository : IRepository<Bus>
+    public class BusRepository : IRepository<int,Bus>
     {
         readonly Dictionary<int, Bus> _buses;
 
@@ -15,24 +15,33 @@ namespace BusBooking_DAL_Library
         {
             _buses = new Dictionary<int, Bus>();
         }
-        public void Add(Bus entity)
+        public Bus Add(Bus entity)
         {
             if (!_buses.ContainsValue(entity))
+            {
+                entity.BusId = GenerateId();
                 _buses.Add(entity.BusId, entity);
-            else Console.WriteLine("Bus with the same ID Already Exist");
+                return entity;
+            }
+            return null;
         }
 
-        public void Delete(int id)
+        public Bus Delete(int id)
         {
             if (_buses.ContainsKey(id))
+            {
+                Bus bus = _buses[id];
                 _buses.Remove(id);
-            else
-                Console.WriteLine("Bus not found.");
+                return bus;
+            }
+            return null;
         }
 
         public List<Bus> GetAll()
         {
-            return new List<Bus>(_buses.Values);
+            if (_buses.Count == 0) return null;
+            return _buses.Values.ToList();
+
         }
 
         public Bus GetById(int id)
@@ -43,17 +52,20 @@ namespace BusBooking_DAL_Library
                 return null;
         }
 
-        public void Update(Bus entity)
+        public Bus Update(Bus entity)
         {
             if (_buses.ContainsKey(entity.BusId))
+            {
                 _buses[entity.BusId] = entity;
-            else
-                Console.WriteLine("Bus not found.");
+                return entity;  
+
+            }
+            return null;
         }
         public int GenerateId()
         {
             if (_buses.Count == 0)
-                return 1;
+                return 201;
             int id = _buses.Keys.Max();
             return ++id;
         }

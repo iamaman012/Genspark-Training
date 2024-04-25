@@ -10,34 +10,46 @@ namespace BusBooking_BL_Library
 {
     public class PassengerManager : IPassengerManager
     {
-        readonly IRepository<Passenger> _passengerRepository;
+        readonly IRepository<int,Passenger> _passengerRepository;
         public PassengerManager()
         {
             _passengerRepository = new PassengerRepository();
         }
-        public void AddPassenger(Passenger passenger)
+        public Passenger AddPassenger(Passenger passenger)
         {
-            _passengerRepository.Add(passenger);
+            Passenger result = _passengerRepository.Add(passenger);
+            if (result != null) return result;
+            throw new DuplicatePassengerException();
         }
 
-        public void DeletePassenger(int passengerId)
+        public Passenger DeletePassenger(int passengerId)
         {
-            _passengerRepository.Delete(passengerId);
+            Passenger passenger = _passengerRepository.Delete(passengerId);
+            if(passenger != null) return passenger;
+            throw new PassengerNotExistException();
         }
 
         public List<Passenger> GetAllPassengers()
         {
-            return _passengerRepository.GetAll();
+            List<Passenger> result = _passengerRepository.GetAll();
+            if(result != null) return result;
+            throw new PassengerNotExistException();
         }
 
         public Passenger GetPassengerById(int passengerId)
         {
-            return _passengerRepository.GetById(passengerId);
+            Passenger result = _passengerRepository.GetById(passengerId);
+            if(result!=null) return result;
+            throw new PassengerNotExistException();
         }
 
-        public void UpdatePassenger(Passenger passenger)
+        public Passenger UpdatePassenger(Passenger passenger)
         {
-            _passengerRepository.Update(passenger);
+            Passenger result = _passengerRepository.Update(passenger);
+            if(result != null) return result;
+            throw new PassengerNotExistException();
         }
+
+       
     }
 }

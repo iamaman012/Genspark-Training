@@ -11,8 +11,8 @@ namespace BusBooking_BL_Library
     {
         List<Passenger> GetAllPassengers();
         Passenger GetPassengerById(int passengerId);
-        void AddPassenger(Passenger passenger);
-        void UpdatePassenger(Passenger passenger);
-        void DeletePassenger(int passengerId);
+        Passenger AddPassenger(Passenger passenger);
+        Passenger UpdatePassenger(Passenger passenger);
+        Passenger DeletePassenger(int passengerId);
     }
 }
