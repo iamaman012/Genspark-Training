@@ -1,0 +1,1 @@
+Scaffold-DbContext "Data Source=71RBBX3\SQLEXPRESS;Integrated Security=true;Initial Catalog=db_ClinicShop" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model
