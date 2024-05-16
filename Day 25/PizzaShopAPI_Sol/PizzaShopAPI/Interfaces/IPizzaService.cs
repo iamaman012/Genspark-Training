@@ -1,4 +1,5 @@
 ﻿using PizzaShopAPI.Models;
+using PizzaShopAPI.Models.DTOs;
 
 namespace PizzaShopAPI.Interfaces
 {
@@ -10,7 +11,7 @@ namespace PizzaShopAPI.Interfaces
 
         public Task<Pizza> GetPizzaById(int id);
 
-        public Task<Pizza> AddPizza(Pizza pizza);
+        public Task<Pizza> AddPizza(AddPizzaDTO pizza);
 
         public Task<Pizza> UpdatePizza(Pizza pizza);
 

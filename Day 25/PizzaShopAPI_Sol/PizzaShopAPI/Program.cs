@@ -24,9 +24,14 @@ namespace PizzaShopAPI
             #endregion
             #region Repositories
             builder.Services.AddScoped<IRepository<int, Pizza>, PizzaRepository>();
+            builder.Services.AddScoped<IRepository<int, Customer>, CustomerRepository>();
+            builder.Services.AddScoped<IRepository<int, CustomerDetail>, CustomerDetailRepository>();
             #endregion
             #region Services
             builder.Services.AddScoped<IPizzaService, PizzaService>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<ICustomerDetailService, CustomerDetailService>();
+            builder.Services.AddScoped<IUserService, UserService>();    
             #endregion
             var app = builder.Build();
 

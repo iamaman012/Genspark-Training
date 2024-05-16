@@ -14,6 +14,7 @@ namespace PizzaShopAPI.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
+        public DbSet<CustomerDetail> CustomerDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

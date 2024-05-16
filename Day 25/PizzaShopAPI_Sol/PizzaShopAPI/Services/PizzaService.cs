@@ -1,5 +1,6 @@
 ﻿using PizzaShopAPI.Interfaces;
 using PizzaShopAPI.Models;
+using PizzaShopAPI.Models.DTOs;
 using System.Net.WebSockets;
 
 namespace PizzaShopAPI.Services
@@ -12,9 +13,11 @@ namespace PizzaShopAPI.Services
         {
             _repository = repository;
         }
-        public async Task<Pizza> AddPizza(Pizza pizza)
-        {
-            var result = await _repository.Add(pizza);
+        public async Task<Pizza> AddPizza(AddPizzaDTO pizza)
+        {   
+            Pizza entity = new Pizza() { Description = pizza.Description, Name = pizza.Name, Price = pizza.Price, Quantity = pizza.Quantity };
+
+            var result = await _repository.Add(entity);
             if(result != null)
             {
                 return result;

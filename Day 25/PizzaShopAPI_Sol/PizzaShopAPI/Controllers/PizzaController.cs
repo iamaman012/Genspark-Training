@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PizzaShopAPI.Interfaces;
 using PizzaShopAPI.Models;
+using PizzaShopAPI.Models.DTOs;
 
 namespace PizzaShopAPI.Controllers
 {
@@ -44,21 +45,22 @@ namespace PizzaShopAPI.Controllers
             }
         }
 
-        
 
-        //[HttpPost("Add")]
-        //public async Task<ActionResult<Pizza>> AddPizza([FromBody]Pizza pizza)
-        //{
-        //    try {
-        //      var result = await _pizzaService.AddPizza(pizza);
-        //        return Ok(result);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-        //    }
-        //}
 
-        
+        [HttpPost("Add")]
+        public async Task<ActionResult<Pizza>> AddPizza(AddPizzaDTO pizza)
+        {
+            try
+            {
+                var result = await _pizzaService.AddPizza(pizza);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+
     }
 }
