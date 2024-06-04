@@ -1,6 +1,7 @@
 ﻿using EmployeeRequestTrackerAPI.Interfaces;
 using EmployeeRequestTrackerAPI.Models;
 using EmployeeRequestTrackerAPI.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace EmployeeRequestTrackerAPI.Controllers
         {
             _requestService = requestService;
         }
-
+        [Authorize]
         [HttpPost("RaiseRequest")]
         [ProducesResponseType(typeof(ReturnRequestDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
@@ -32,6 +33,7 @@ namespace EmployeeRequestTrackerAPI.Controllers
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
         }
+        [Authorize]
         [HttpPost("GetRequest")]
         [ProducesResponseType(typeof(IEnumerable<ReturnRequestDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]

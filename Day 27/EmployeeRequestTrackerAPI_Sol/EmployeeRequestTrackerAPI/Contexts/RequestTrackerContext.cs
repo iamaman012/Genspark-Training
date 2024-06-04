@@ -5,6 +5,10 @@ namespace EmployeeRequestTrackerAPI.Contexts
 {
     public class RequestTrackerContext : DbContext
     {
+        public RequestTrackerContext(DbContextOptions options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=71RBBX3\\SQLEXPRESS;Integrated Security=true;Initial Catalog=dbRequestTracker14May24;");

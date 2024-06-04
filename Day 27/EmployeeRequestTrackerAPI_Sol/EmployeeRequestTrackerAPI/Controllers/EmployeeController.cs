@@ -18,7 +18,7 @@ namespace EmployeeRequestTrackerAPI.Controllers
         {
             _employeeService = employeeService;
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(IList<Employee>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
