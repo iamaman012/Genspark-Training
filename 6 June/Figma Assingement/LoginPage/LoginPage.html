@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        button{
+            background-color: #FFFFFF;
+            color: #2148C0;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 20px;
+            border-radius: 4px;
+            height: 45px;
+            
+        }
+        .background{
+            background-color: #264ECA;
+        }
+        .inp{
+            border : 1px solid #FFFFFF;
+            color:#FFFFFF
+            
+          
+        }
+        .inp::placeholder{
+            color: #FFFFFF;
+        }
+        a{
+            color: #FFFFFF;
+            margin-left: auto;
+        
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="background d-flex vh-100">
+        <div class="form m-auto w-25 h-50">
+            <form>
+                <div class="d-flex">
+                    <img src="Group.png" class="m-auto w-25 mb-4" alt="">
+                </div>
+                <div class="mb-3">
+                  
+                  <input type="email" class="form-control inp bg-transparent" placeholder="Username" id="exampleInputEmail1" >
+                  
+                </div>
+                <div class="mb-3">
+                  
+                  <input type="password" placeholder="Password" class="form-control inp bg-transparent" id="exampleInputPassword1">
+                </div>
+                
+                <button type="submit" class="text-center w-100">LOGIN</button>
+                <div class="d-flex mb-3 form-check">
+                 
+                    <a  href="">Forgot Password?</a>
+                  </div>
+              </form>
+        </div>
+    </div>
+</body>
+</html>
