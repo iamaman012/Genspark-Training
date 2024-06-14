@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container border w-25 mt-5 p-3 h-75">
+       
+        <form>
+            <div class="row g-1">
+                <div class="col-12 text-center">
+                    <h1>Registration Form</h1>
+                </div>
+                <div class="col-12">
+                    <input type="text" id="name" class="form-control" onblur="validateName()" placeholder="Name" value=""/>
+                    <p id="name-text"></p>
+                </div>
+                <div class="col-12">
+                    <input type="number" id="phone" class="form-control" onblur="validatePhone()" placeholder="Phone" value=""/>
+                    <p id="phone-text"></p>
+                </div>
+                <div class="col-12">
+                    <input type="date" id="dob" class="form-control" onblur="validateDOB()" placeholder="Date Of Birth" value=""/>
+                    <p id="dob-text"></p>
+                </div>
+                <div class="col-12">
+                    <input type="email" id="email" class="form-control" onblur="validateEmail()" placeholder="Email" value=""/>
+                    <p id="email-text"></p>
+                </div>
+                <div class="col-12">
+                    <input type="number" id="age" class="form-control" placeholder="Age" value="" disabled/>
+                </div>
+                <div class="col-12">
+                    <label for="exampleInputEmail1" class="form-label">Gender</label><br/>
+                    <label>Male</label>
+                    <input type="radio" name="gender" value="Male"/>
+                    <label>Female</label>
+                    <input type="radio" name="gender" value="Female"/>
+                </div>
+                
+                <div class="col-12">
+                    <label for="exampleInputEmail1" class="form-label">Qualification</label><br/>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Post Graduate" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Post Graduate
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Graduate" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                          Graduate
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Graduate" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                          Intermediate
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Graduate" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                          HighSchool
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <input list="Professions" id="prof" class="form-control" name="Profession" placeholder="Profession" onblur="validateProf()">
+                    <p id="Prof-text"></p>
+                    <datalist id="Professions">
+                        <option value="Software Engineer">
+                        <option value="Lawyer">
+                        <option value="Doctor">
+                        <option value="Psychologist">
+                        <option value="Businessman">
+                    </datalist>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary w-100"> Submit </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="register.js"></script>
+       
+    
+</body>
+</html>

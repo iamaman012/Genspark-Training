@@ -1,0 +1,36 @@
+.error {
+    border: red 2px solid;
+    box-shadow: 5px 5px pink;
+}
+.correct {
+    border: green 2px solid;
+    box-shadow: 5px 5px lightgreen;
+}
+.error-text {
+    color: red;
+}
+.correct-text {
+    color: green;
+}
+@media (max-width: 900px)  {
+    h1 {
+        font-size: 1.5em;
+    }
+}
+@media (max-width: 600px)  {
+    h1 {
+        font-size: 0.7rem;
+    }
+    .container {
+        width: 90%;
+    }
+    .container div {
+        width: 100%;
+    }
+    .container div input {
+        width: 100%;
+    }
+    .container div button {
+        width: 100%;
+    }
+}
