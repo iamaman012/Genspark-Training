@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeRequestTrackerAPI.Migrations
 {
     [DbContext(typeof(RequestTrackerContext))]
-    [Migration("20240514081829_init")]
+    [Migration("20240716051821_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

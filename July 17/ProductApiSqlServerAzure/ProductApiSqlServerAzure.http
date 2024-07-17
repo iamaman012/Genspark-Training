@@ -1,0 +1,6 @@
+@ProductApiSqlServerAzure_HostAddress = http://localhost:5192
+
+GET {{ProductApiSqlServerAzure_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
