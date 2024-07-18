@@ -27,5 +27,19 @@ namespace ProductApiSqlServerAzure.Controllers
                 throw;
             }
         }
+
+        [HttpPost("add")]
+        public async Task<ActionResult<IEnumerable<Product>>> AddProducts([FromForm]ProductDTO productDto)
+        {
+            try
+            {
+                var result = await _productService.AddProduct(productDto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
